@@ -5,8 +5,12 @@ class KnightPathFinder
   attr_reader :starting_pos
   def initialize(starting_pos)
     @starting_pos = starting_pos
-    @visited_positions = [starting_pos]
-    build_move_tree(@starting_pos)
+    learn_paths
+  end
+
+  def starting_pos=(new_pos)
+    @starting_pos = new_pos
+    learn_paths
   end
 
   def find_path(end_pos)
@@ -15,6 +19,11 @@ class KnightPathFinder
 
   private
   attr_accessor :visited_positions, :root_node
+  
+  def learn_paths
+    @visited_positions = [@starting_pos]
+    build_move_tree(@starting_pos)
+  end
 
   # --------------------------------------------------------------------
   def new_move_positions(pos)
